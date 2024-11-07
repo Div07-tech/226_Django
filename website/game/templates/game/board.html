@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Game Display</title>
+    <style>
+        .board {
+            font-family: Arial, sans-serif;
+            margin-bottom: 20px;
+        }
+        .board td {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        .players {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Game Board</h1>
+
+    <!-- Display the board (board_string will be inserted here) -->
+    <div class="board">
+        <p>{{ board|safe }}</p>
+    </div>
+
+    <!-- Display Player Info -->
+    <div class="players">
+        <h2>Players' Scores</h2>
+        <ul>
+            {% for player in players %}
+                <li>{{ player.name }}: {{ player.score }} points</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+
+</body>
+</html>
+
