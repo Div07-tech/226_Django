@@ -29,7 +29,7 @@ def create_game(request):
                 is_treasure = False  # No treasure for blank tiles
             else:  # 85% chance of being a number (1-4)
                 random_value = str(random.randint(1, 4))
-                is_treasure = random.random() < 0.1  # 10% chance for a number to be a treasure tile
+                is_treasure = True
 
             # Create the tile with the assigned value (either number or blank)
             tile = Tile(row=row, col=col, value=random_value, treasure=is_treasure)
@@ -94,7 +94,8 @@ def pick_tile(request, player_name, row, column):
         if tile.value:
             print(tile.value)
             player.score += int(tile.value) # Convert the value (1-4) to an integer and update the score
-            # tile.value = '_'
+            tile.value = '_'
+            tile.treasure = False
         # Save the tile and player after changes
         tile.save()
         player.save()
