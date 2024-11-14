@@ -112,8 +112,7 @@ def game_display(request):
 
 # Handle player picking a tile
 @transaction.atomic
-def pick_tile(request, player_name, row,
-              column):
+def pick_tile(request, player_name, row, column):
     try:
         # Validate that the row and column are within bounds (0-9)
         if row < 0 or row >= 10 or column < 0 or column >= 10:
