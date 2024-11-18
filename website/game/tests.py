@@ -11,6 +11,7 @@ class test_player(TestCase):
        player_count = Player.objects.all()
        # Ensure there are exactly 2 players
        self.assertEqual(len(player_count), 2)
+
        # Ensure players have the correct attributes
        self.assertEqual(player_count[0].name, "One")
        self.assertEqual(player_count[1].name, "Two")
