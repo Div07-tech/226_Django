@@ -3,7 +3,7 @@ import random
 from django.core.management import call_command
 from django.db import transaction
 from django.shortcuts import render, redirect
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, HttpResponseBadRequest
 from .models import Tile, Player
 
 class Board:
@@ -128,7 +128,7 @@ def pick_tile(request, player_name, row, column):
         # Perform the tile and player update
         if tile.value:
             print(tile.value)
-            player.score += int(tile.value) # Convert the value (1-4) to an integer and update the score
+            player.score += int(tile.value)
             tile.value = '_'
             tile.treasure = False
         # Save the tile and player after changes
@@ -140,8 +140,10 @@ def pick_tile(request, player_name, row, column):
         return redirect('game_display')
 
     except Tile.DoesNotExist:
-        raise Http404("Tile does not exist.")
+        raise HttpResponseBadRequest("Tile does not exist.")
     except Player.DoesNotExist:
-        raise Http404("Player does not exist.")
-
+        raise HttpResponseBadRequest("Player does not exist.")
+    except Exception as e:
+        # Catch any other unexpected exceptions
+        return HttpResponseBadRequest(f"An error occurred: {str(e)}")
 
